@@ -1,0 +1,301 @@
+---
+title: "SDN Proyecto"
+author: "Mireya Santos Reyes"
+date: '2022-04-07'
+output: 
+  html_document:
+    toc: true
+    toc_depth: 5
+    toc_float:
+      collapsed: true
+      smooth_scroll: true
+---
+
+## Desarrollo Tecnológico SDN
+El presente proyecto se a ido desarrollando a partir de la experiencia y trabajos que he desarrollado durante toda la carrera. Este proyecto se hace con la finalidad de dar a conocer el tema ya que es muy importante, de igual manera este proyecto se hace con la finalidad de titulación. 
+
+## INSTALACIÓN DE MININET Y CREACIÓN DE TOPOLOGÍA.
+¿Qué es mininet? Este es un emulador para el despliegue de rede sobre los limitados recursos de un ordenador sencillo simple o máquina virtual. Éste utiliza el kernel de Linux y otros recursos para emular elementos de la SDN como el controlador, los switches OpenFlow y los hosts. Podrás entrar al siguiente enlace para saber más acerca de lo que es mininet y sobre las funciones que tiene. 
+[programmerclick.com](https://programmerclick.com/article/41521448687/)
+Una vez entiendo el concepto de mininet comenzaremos con la instalación para llevar acabo nuestro proyecto.
+
+<br></br>
+
+### Paso 1;
+Dentro de nuestra máquina virtual entraremos a la terminal para poder iniciar con la instalación de mininet y poder crear la topología que se necesita para poder llevar acabo nuestro proyecto. 
+Una vez abierta la terminal pondremos el siguiente comando: 
+
+`sudo apt-get update`
+
+Este comando nos servirá para poder descargar todos los paquetes que estén disponibles y nos sean de ayuda.
+
+### Paso 2;
+Una vez teniendo los paquetes vamos a clonar los repositorios de git con el siguiente comando:
+
+`sudo git://github.com/mininet/mininet`
+
+### Paso 3;
+Ahora bien ya que clonamos los repositorios de git entraremos a la carpeta de **Mininet** con el siguiente comando.
+
+`git tag`
+
+Para poder observar las diferentes ramas y versiones que esta contiene disponible.
+
+### Paso 4;
+Se instalara la última versión estable la cual es la **2.2.2** como se muestra en la siguiente figura 1.1.
+
+![Figura 1.1: Mininet trabajara bajo la última versión bajo el comando ya establecido anteriormente.](2.2.2.png){withd=10%}
+
+### Paso 5;
+El siguiente paso a seguir nos servirá para movernos a la rama que nosotros deseamos en este caso será en la versión **2.2.2** esto se lograra mediante el comando.
+
+`sudo git checkout –b 2.2.2 2.2.2`
+
+### Paso 6;
+Una vez instalada la versión, podremos limpiar la terminar para poder continuar con el siguiente comando:
+
+`sudo mininet/util/install.sh –a`
+
+Este comando nos ayudara hacer la instalación adecuada de **Mininet** sabremos que lo hemos hecho bien cuando nos aparezca en la pantalla que todos los paquetes se están descargando correctamente como aparece en la figura 1.2.
+
+![Figura 1.2: Descarga de paquetes para a completar la instalación y pueda funcionar adecuadamente.](instalacion.png){withd=0%}
+
+### Paso 7;
+Una vez que la instalación finalizo mininet quedo instalado correctamente, listo para usarse y poder crear topologías.
+Para poder entrar al emulador de mininet existen dos formas distintas mediante código, donde creas la topología o entrar directamente al emulador por medio de una terminal.
+La opción que nosotros vamos a manejar será la segunda ya que se me hace más fácil de manipular y seria mediante los siguientes comandos.
+
+<br>
+<br>
+
+
+| Comandos |
+---------
+`cd mininet`
+`cd examples`
+`./miniedit.py`
+
+<br>
+<br>
+
+Podemos apreciar los comandos en la figura 1.3:
+
+![Figura 1.3: Mininet se inicializa a través de los comandos mencionados anteriormente.](abrir.png)
+
+De esta manera podremos entrar al emulador de mininet y poder crear la topología con la cual estaremos trabajando.
+
+![Figura 1.4: Creación de la topología y conexión de los dispositivos.](topo.png)
+
+## PLACA Y SENSORES.
+
+En este apartado se hablara sobre la placa con la cual estaremos trabajando, el programa que se necesita para que esta funcione adecuadamente, así mismo el sensor con el cual trabajaremos y el código que se necesita.
+
+### Paso 1;
+Placa de **RASPBERRY PY 3**
+
+La Raspberry Pi es una serie de ordenadores de placa reducida, ordenadores de placa única u ordenadores de placa simple de bajo costo.
+
+Para que esta placa funcione adecuadamente se necesitara
+
+* Tarjeta SD 16 GB.
+* Una plantalla.
+* Un teclado.
+* Un mause.
+* Un cable HDMI
+
+### Paso 2;
+Una vez teniendo nuestras herramientas listas procederemos a instalar el sistema operativo en nuestra memoria SD que necesitara la placa **Raspberry py** para que tenga un buen funcionamiento.
+
+**Raspberry Pi** necesita un sistema operativo para funcionar. **Raspberry Pi** (anteriormente llamado Raspbian) es nuestro sistema operativo compatible oficial. En el siguiente enlace se dejara la página oficial para que lo puedan descargar y guiarse con el paso a paso que se explica.
+[raspberrypi.com](https://www.raspberrypi.com/software/)
+
+Todo tiene que quedar conectado correctamente como se muestra en la siguiente figura 2.1.
+
+![Figura 2.1: Conexión de los dispositivos que se necesitaron para la placa Raspberry Py](instalacion2.png)
+
+### Paso 3;
+SENSOR **DHT11**
+El DHT11 es un sensor digital de temperatura y humedad relativa de bajo costo y fácil uso. Integra un sensor capacitivo de humedad y un termistor para medir el aire circundante, y muestra los datos mediante una señal digital en el pin de datos.
+
+### Paso 4;
+**El circuito que vamos a utilizar será el siguiente:**
+
+![Figura 2.2: Circuito utilizado para el sensor, con el cual se va a trabajar para medir la temperatura.](rasp.png)
+
+### Paso 5;
+Para que este circuito funcione junto con el sensor tenemos que diseñar el código que va de acuerdo el sensor y a la placa que estamos utilizando. En este caso nosotros utilizamos el siguiente código: 
+
+```
+import Adafruit_DHT
+import time
+
+DHT-SENSOR = Adafruit_DHT.DHT11
+DHT_PIN = 4
+
+while True:
+    humidity, temperature = Adafruit_DHT.read(DHT_SENDOR, DHT_PIN)
+    if humudity is not None and temperature is not None:
+        print("Temp={0:0.1f}C Humidity={1:0.1f}%.format(temperature, humidity))
+    else:
+        print("Sensor fail. Check wiring.");
+    time.sleep(1);
+
+```
+Una vez teniendo el codigo empezara a tomar la temperatura del aire, como se muestra en la siguinete figura 2.3.
+
+![Figura 2.3:Código utilizado para el funcionamiento del sensor y nos pueda mostrar los datos con lo que vamos a trabajar. ](ras.jpg)
+
+## CORTA FUEGO RYU.
+
+El protocolo Openflow es un estándar definido por la ONF (Open Networking Foundation) como la primera interfaz estándar para la comunicación de la capa de control y la capa de infraestructura de la arquitectura, y fue especialmente diseñada para la arquitectura SDN. Openflow proporciona un protocolo abierto para programar el flujo en diferentes dispositivos de red como conmutadores y enrutadores.
+ 
+Para saber más sobre **RYU** les dejare el siguiente link para que puedan leer más sobre el:
+
+[kinsta.com](https://kinsta.com/es/blog/que-es-un-cortafuegos/)
+
+Ahora bien una vez teniendo el concepto comenzaremos con la instalación:
+
+### Paso 1;
+Como primer paso lo que haremos es la actualización de **RYU** con el comando:
+
+`sudo apt-get update`
+
+### Paso 2;
+Como siguiente paso instalaremos los repositorios de git con el comando
+
+`sudo apt-get install git`
+
+En caso de que los repositorios ya estén instalados se mandara un mensaje de **Hecho** como se muestra en la siguiente figura:
+
+![Figura 4.1: Los repositorios han sido instalados correctamente para poder ejecutarse y seguir adelante con la práctica.](git.png)
+
+### Paso 3; 
+Vamos a instalar Python de igual manera clonaremos los repositorios de git con el siguiente comando: 
+
+`sudo apt-get install Python.pip`
+
+`git clone git://github.com/osrg/ryu`
+
+### Paso 4;
+Una vez que se terminado el procedimiento de instalación y la clonación instalaremos las herramientas necesarias con el siguiente comando:
+
+`sudo pip install –r tolos/pip-requires`
+
+### Paso 5;
+Comprobaremos que los pasos anteriores han sido exitosos con el siguiente comando como se muestra en la figura 3.1
+
+`ryu manager`
+
+![Figura 3.1: Comprobación de los pasos anteriores](correcto.png)
+
+### Paso 6;
+Una vez que tenemos instalado correctamente todo entraremos a la terminal de la topología para hacer la implementación y configuración del controlador, ya que esta es una pieza clave para poder permitir o denegar la transición de los paquetes. Se habilitara el acceso en la terminal con los siguientes comandos:
+
+`ovs-vsctl set Bridge s1 protocols=OpenFlow13`
+
+`ryu-manager ryu.app.rest_firewall`
+
+IAMGEN1
+
+### Paso 7;
+Ahora bien se modificara el estado inicial de firewall, para esto abriremos una nueva terminal en la cual pondremos las siguientes líneas de comando:
+
+`curl -X PUT http://localhost:8080/firewall/module/enable/0000000000000001`
+
+`curl http://localhost:8080/firewall/module/status`
+
+
+### Paso 8;
+Como siguiente paso haremos la prueba enviando un ping de un host a otro para poder si la conexión ha sido exitosa como se muestra en la siguiente figura
+
+`ping 10.0.0.2`
+
+IMAGEN2
+
+### Paso 9;
+Vamos a configurar las reglas que son las más importantes ya que estas van a especificar el flujo de los paquetes de los dispositivos, esto con los dispositivos, siguiendo las reglas de restricción.
+Con los siguientes comandos:
+
+`curl -X POST -d '{"nw_src": "10.0.0.2/32", "nw_dst": "10.0.0.1/32", "nw_proto": "ICMP"}' http://localhost:8080/firewall/rules/0000000000000001`
+
+`curl -X POST -d '{"nw_src": "10.0.0.1/32", "nw_dst": "10.0.0.2/32", "nw_proto": "ICMP"}' http://localhost:8080/firewall/rules/0000000000000001`
+
+Estas reglas que acabamos de utilizar se verán reflejadas como entradas de flujo como se muestra en la figura 
+
+IMAGEN3
+
+## TRANSMISIÓN DE PAQUETES.
+Wireshark se ha convertido en una bendición para cualquier administrador de sistemas o profesional de seguridad. Se trata de un software que permite analizar el tráfico red en tiempo real. Pero su particularidad es que a menudo es la mejor herramienta para solucionar los problemas de Red como la latencia o actividad maliciosa como intentos de piratería.
+Podrás entrar al siguiente enlace para saber más acerca de lo que es **Wireshark** y sobre las funciones que tiene. 
+
+[cso.computerworld.es](https://cso.computerworld.es/tendencias/que-es-wireshark-asi-funciona-la-nueva-tendencia-esencial-en-seguridad)
+
+Los resultados sobre la transmisión de datos definidos entre la comunicación de los dispositivos, se inicia la instrucción ifconfig, con esto vamos a visualizar los detalles de los dispositivos, para asegurarnos que los pasos se realizaron correctamente y se pondrá la ip que los conecta.
+
+Para poder visualizar mucho mejor los resultados se utiliza Wireshark dentro de este pasaremos el ip correspondiente a donde hemos estado trabajando en nuestro caso será el ip de host2 como se muestra en las siguientes imágenes.
+
+<br>
+<br>
+
+
+![Figura 4.1: Se enviaron los datos para poder capturarlo](4.1.png)
+
+<br>
+
+
+
+
+
+
+
+
+![Figura 4.2: Captura disponibles para el filtrado de dtos](4.2.png)
+
+
+
+
+<br>
+<br>
+
+
+
+
+## RESULTADOS
+De acuerdo con los objetivos que se propusieron en este proyecto fueron completados en su total finalidad. En la simulación de SDN y el desarrollo de este mismo se hizo una investigación sobre todo el tema, esta investigación se sacó de algunos artículos, de libros e incluso de implementaciones de tecnologías en el área de redes. Toda esta información que se reunió fue de gran ayuda para poder alcanzados los resultados esperados.
+Las pruebas fueron realizadas en un ambiente controlado, determinando que la red tenía menos pérdidas de los paquetes que a diferencia de una red.
+
+
+
+
+
+
+## FUENTES DE CONSULTA 
+
+
+
+
+[1]Adrián Olguín . (2019). Internet.. 2019, de Desconocida Sitio web: http://cdmx.inea.gob.mx/CURSO/CursoComputo/Internet/index.htm
+
+
+[2]JOSE LEONARDO HENAO RAMIREZ. (2015). Internet de Las Cosas. 2015, de UNIVERSIDAD TECNOLOGICA DE PEREIRA Sitio web: http://repositorio.utp.edu.co/dspace/bitstream/handle/11059/5713/00678H493.pdf?sequence=1#:~:text=5.2.-,MARCO%20CONCEPTUAL%3A,de%20telecomunicaci%C3%B3n%20programables%20y%20flexibles.&text=Este%20enfoque%20ofrece%20caracter%C3%ADsticas%20como,seguridad%20de%20redes%20%5B5%5D.
+
+
+[3]. Cristian David Bermúdez Escobar. (1019). Redes definidas por Software y Protocolo OpenFlow. Enero, de Tecnología en sistema Sitio web: https://repository.usc.edu.co/bitstream/handle/20.500.12421/4653/BENEFICIOS%20DE%20LAS%20REDES.pdf?sequence=3&isAllowed=y
+
+
+[4]Ing. Ingrid Ccoyllo. (2018). Redes definidas por Software (SDN). 2018, de CCSI CCNA Sitio web: https://informatica.ucm.es/data/cont/media/www/pag-103596/transparencias/redes-por-software-SDN.pdf
+
+
+[5] Desconocido. (2019). Empezar con Mininet. Octubre 20, de Mininet Sitio web: http://mininet.org/download/
+
+
+[6] Ian welch. (2019). Cortafuego RYU. 06 Abril , de github Sitio web: https://github.com/gwacter-zz/sdn-workshop/blob/master/exercises/06-ryu-firewall.md
+
+
+[7] Ian welch. (2019). Cortafuego RYU. 06 Abril , de github Sitio web: https://github.com/gwacter-zz/sdn-workshop/blob/master/exercises/06-ryu-firewall.md
+
+
+[8] Marco Antonio. (2020). Raspberry Pi. Diciembre 10, de Blog britix Sitio web: https://picodotdev.github.io/blog-bitix/2021/02/guia-de-instalacion-de-gnu-linux-para-la-raspberry-pi/
+
+
+[9] Andrés Ballesteros. (2016). Seguridad en redes definidas por software . Agosto, de Facultad de Ingeniería en Telecomunicaciones Sitio web: https://rdu.iua.edu.ar/bitstream/123456789/1142/1/TF.pdf
